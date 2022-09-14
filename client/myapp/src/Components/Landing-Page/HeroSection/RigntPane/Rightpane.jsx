@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Heading,
   Highlight,
@@ -9,11 +9,39 @@ import {
   Link,
 } from "@chakra-ui/react";
 import CustomButton from "../../../Common/Button/CustomButton";
-
+import gsap from "gsap-trial";
 const Rightpane = () => {
+  useEffect(() => {
+    gsap
+      .timeline()
+      .fromTo(
+        ".css-1bqt1r8",
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 1,
+          ease: "linear",
+          stagger: { each: 0.5, ease: "linear" },
+        }
+      )
+      .fromTo(
+        "#heroAnimate :not(.css-1bqt1r8)",
+        { opacity: 0, y: 100 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "linear",
+          stagger: { amount: 0.5, ease: "back2.In" },
+        },
+        "<0.1"
+      );
+  }, []);
+
   return (
     <Box className="HeroContent" maxW="42rem">
       <Heading
+        id="heroAnimate"
         as="h1"
         fontSize={["28px", "32px", "52px", "64px"]}
         lineHeight={["32px", "42px", "60px", "78px"]}
@@ -30,6 +58,7 @@ const Rightpane = () => {
         </Highlight>
       </Heading>
       <Text
+        id="heroAnimate"
         textAlign={["center", "center", "revert"]}
         fontSize={["16px", "16px", "20px", "24px"]}
         fontWeight={["medium", "medium", "semibold"]}>
@@ -37,6 +66,7 @@ const Rightpane = () => {
         across multiple projects; all from one tool.
       </Text>
       <InputGroup
+        id="heroAnimate"
         display="flex"
         flexDirection={["column", "column", "row"]}
         alignItems="center"
