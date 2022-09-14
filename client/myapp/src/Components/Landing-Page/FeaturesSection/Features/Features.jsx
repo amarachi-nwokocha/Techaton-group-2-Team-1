@@ -1,7 +1,33 @@
 import { Box, Heading, SimpleGrid, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
+import gsap from "gsap-trial";
+import ScrollTrigger from "gsap-trial/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Features = () => {
+  useEffect(() => {
+    const animation = gsap.fromTo(
+      "#featuresCard",
+      { opacity: 0, y: 100 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+
+        stagger: { amount: 0.5 },
+      }
+    );
+    ScrollTrigger.create({
+      trigger: "#featuresBox",
+      end: "30% 50%",
+      markers: { startColor: "red", endColor: "green", fontWeight: "500" },
+      animation,
+      scrub: true,
+      once: true,
+    });
+  }, []);
+
   const FeaturesArr = [
     {
       _id: 1,
@@ -35,7 +61,7 @@ const Features = () => {
     },
   ];
   return (
-    <Box w="100%" justifySelf="stretch">
+    <Box id="featuresBox" w="100%" justifySelf="stretch">
       <SimpleGrid
         columns={[1, 1, 2]}
         gap="60px"
@@ -43,7 +69,7 @@ const Features = () => {
         justifyItems="center"
         height="100%">
         {FeaturesArr.map((feature) => (
-          <Box key={feature._id}>
+          <Box id="featuresCard" key={feature._id}>
             <Heading
               fontSize={["30px", "30px", "24px"]}
               color="primary.600"
