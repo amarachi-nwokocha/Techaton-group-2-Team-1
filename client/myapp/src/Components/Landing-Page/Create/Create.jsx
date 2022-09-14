@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -8,10 +8,33 @@ import {
   Highlight,
 } from "@chakra-ui/react";
 import create from "../../../Asset/illustration_Create.svg";
+import gsap from "gsap-trial";
+import ScrollTrigger from "gsap-trial/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 const Create = () => {
+  useEffect(() => {
+    const animation = gsap.fromTo(
+      "#createHead",
+      { opacity: 0, y: 100 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+
+        stagger: { amount: 0.5 },
+      }
+    );
+    ScrollTrigger.create({
+      trigger: "#createBox",
+      start: "-20% 80%",
+      animation,
+      once: true,
+    });
+  }, []);
   return (
     <Container
+      id="createBox"
       display="flex"
       mt={["5rem", "5rem", "2rem"]}
       flexDirection={["column-reverse", "column-reverse", "row"]}
@@ -22,6 +45,7 @@ const Create = () => {
       maxW="90vw">
       <Box>
         <Heading
+          id="createHead"
           noOfLines={2}
           fontSize={["20px", "24px", "32px", "48px"]}
           lineHeight={["24px", "32px", "40px", "60px"]}>
@@ -35,7 +59,12 @@ const Create = () => {
             Create task and collaborate with your team effectively.
           </Highlight>
         </Heading>
-        <Text mt={"20px"} fontSize="16px" lineHeight="24px" pr="20rem">
+        <Text
+          id="createHead"
+          mt={"20px"}
+          fontSize="16px"
+          lineHeight="24px"
+          pr="20rem">
           Protrack is a task management app designed to help individual and
           teams work together in one unified workspace.
         </Text>
